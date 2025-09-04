@@ -1,0 +1,365 @@
+/* Distributor Registration Form Styles */
+
+.distributor-form-container {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #dcfce7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.distributor-form-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.distributor-form {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Header Styles */
+.distributor-form-header {
+  text-align: center;
+  border-bottom: 1px solid #dcfce7;
+  padding-bottom: 2rem;
+}
+
+.distributor-form-logo {
+  margin: 0 auto 1rem;
+  height: 4rem;
+}
+
+.distributor-form-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.distributor-form-subtitle {
+  color: black;
+  font-size: 1rem;
+}
+
+/* Section Styles */
+.distributor-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.distributor-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: black;
+  border-bottom: 1px solid #bbf7d0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Input Group Styles */
+.distributor-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.distributor-input-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.distributor-input-label {
+  color: black;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.distributor-input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: white;
+  color: black;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.distributor-input-field:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.distributor-textarea-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: white;
+  color: black;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.distributor-textarea-field:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.distributor-select-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: white;
+  color: black;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.distributor-select-field:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.distributor-file-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: white;
+  color: black;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.distributor-file-input:focus {
+  outline: none;
+  border-color: #10b981;
+}
+
+/* Radio Button Styles */
+.distributor-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.distributor-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.distributor-radio-input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #10b981;
+}
+
+.distributor-radio-label {
+  color: black;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+/* Checkbox Styles */
+.distributor-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.distributor-checkbox-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.distributor-checkbox-input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #10b981;
+  margin-top: 0.125rem;
+}
+
+.distributor-checkbox-label {
+  color: black;
+  font-size: 0.875rem;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+/* Error Styles */
+.distributor-error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.distributor-input-error {
+  border-color: #ef4444;
+}
+
+.distributor-input-error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Button Styles */
+.distributor-submit-button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  margin-top: 1rem;
+}
+
+.distributor-submit-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
+}
+
+.distributor-submit-button:active {
+  transform: translateY(0);
+}
+
+/* Agreement Section */
+.distributor-agreement-section {
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.distributor-agreement-list {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.distributor-agreement-list li {
+  color: black;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+/* Multi-column checkbox layout */
+.distributor-multi-checkbox-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .distributor-form {
+    padding: 2.5rem;
+  }
+  
+  .distributor-form-container {
+    padding: 1.5rem;
+  }
+  
+  .distributor-input-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .distributor-radio-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .distributor-radio-option {
+    min-width: 200px;
+  }
+  
+  .distributor-multi-checkbox-group {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .distributor-form-container {
+    padding: 2rem;
+  }
+  
+  .distributor-form {
+    padding: 3rem;
+  }
+  
+  .distributor-form-wrapper {
+    max-width: 1100px;
+  }
+  
+  .distributor-section-title {
+    font-size: 1.75rem;
+  }
+  
+  .distributor-form-title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .distributor-form-container {
+    padding: 3rem;
+  }
+  
+  .distributor-form {
+    padding: 4rem;
+  }
+  
+  .distributor-form-wrapper {
+    max-width: 1200px;
+  }
+}
+
+/* Focus and accessibility improvements */
+.distributor-input-field:focus,
+.distributor-textarea-field:focus,
+.distributor-select-field:focus,
+.distributor-file-input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .distributor-form-container {
+    background: white;
+    padding: 0;
+  }
+  
+  .distributor-form {
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .distributor-submit-button {
+    display: none;
+  }
+}
