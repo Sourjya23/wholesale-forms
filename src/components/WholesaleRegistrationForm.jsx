@@ -254,10 +254,10 @@ const WholesaleRegistrationForm = () => {
             </div>
           </section>
 
-          {/* Contact Information */}
+          {/* Primary Contact Info */}
           <section className="space-y-6">
             <h2 className="text-2xl font-semibold text-black border-b border-green-200 pb-2">
-              Contact Information
+              Primary Contact Info
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import CustomSignatureCanvas from './SignatureCanvas';
 import './WholesaleRegistrationForm.css';
@@ -6,6 +7,7 @@ import './WholesaleRegistrationForm.css';
 const WholesaleRegistrationForm = () => {
   const [formData, setFormData] = useState({
     companyName: '',
+    legalName: '',
     contactPersonFirstName: '',
     contactPersonLastName: '',
     titlePosition: '',
@@ -18,6 +20,7 @@ const WholesaleRegistrationForm = () => {
     website: '',
     businessType: '',
     otherBusinessType: '',
+    taxExemptStatus: '',
     yearsInBusiness: '',
     monthlyPurchaseVolume: '',
     federalEIN: '',
@@ -33,6 +36,8 @@ const WholesaleRegistrationForm = () => {
     otherShippingMethod: '',
     hasLoadingDock: '',
     autoShipEnrollment: '',
+    orderItemCount: '',
+    minOrderAgreement: false,
     agreementConfirmed: false,
     signature: '',
     signatureDate: ''
@@ -62,13 +67,13 @@ const WholesaleRegistrationForm = () => {
     
     // Required fields validation
     const requiredFields = [
-      'companyName', 'contactPersonFirstName', 'contactPersonLastName', 
+      'companyName', 'legalName', 'contactPersonFirstName', 'contactPersonLastName', 
       'titlePosition', 'street', 'city', 'state', 'zipCode', 
-      'phoneNumber', 'emailAddress', 'businessType', 'yearsInBusiness',
+      'phoneNumber', 'emailAddress', 'businessType', 'taxExemptStatus', 'yearsInBusiness',
       'monthlyPurchaseVolume', 'federalEIN', 'resaleCertificateNumber',
       'sellsSupplements', 'complyWithLaws', 'sellsOnThirdParty',
       'preferredPaymentMethod', 'preferredShippingMethod', 'hasLoadingDock',
-      'autoShipEnrollment', 'signature'
+      'autoShipEnrollment', 'orderItemCount', 'minOrderAgreement', 'signature'
     ];
 
     requiredFields.forEach(field => {
@@ -89,9 +94,19 @@ const WholesaleRegistrationForm = () => {
       newErrors.phoneNumber = 'Please enter a valid phone number';
     }
 
+    // Order item count validation
+    if (formData.orderItemCount && parseInt(formData.orderItemCount) < 1000) {
+      newErrors.orderItemCount = 'Order item count must be at least 1000 units';
+    }
+
     // Agreement validation
     if (!formData.agreementConfirmed) {
       newErrors.agreementConfirmed = 'You must confirm the agreement to proceed';
+    }
+
+    // Minimum order agreement validation
+    if (!formData.minOrderAgreement) {
+      newErrors.minOrderAgreement = 'You must agree to the minimum order requirement';
     }
 
     setErrors(newErrors);
@@ -295,8 +310,8 @@ const WholesaleRegistrationForm = () => {
 
           {/* Contact Information */}
           <section className="form-section">
-            <h2 className="section-title">Contact Information</h2>
-            
+            <h2 className="section-title">Primary Contact Info</h2>
+
             <div className="input-row">
               <div className="input-group">
                 <label className="input-label">Phone Number *</label>
@@ -338,14 +353,27 @@ const WholesaleRegistrationForm = () => {
             </div>
           </section>
 
-          {/* Business Information */}
+          {/* Business & Legal Information */}
           <section className="form-section">
-            <h2 className="section-title">Business Information</h2>
+            <h2 className="section-title">Business & Legal Information</h2>
+            
+            <div className="input-group">
+              <label className="input-label">Legal Name *</label>
+              <input
+                type="text"
+                name="legalName"
+                value={formData.legalName}
+                onChange={handleInputChange}
+                className={`input-field ${errors.legalName ? 'input-error' : ''}`}
+                placeholder="Enter legal business name"
+              />
+              {errors.legalName && <span className="error-message">{errors.legalName}</span>}
+            </div>
             
             <div className="input-group">
               <label className="input-label">Type of Business *</label>
               <div className="radio-group">
-                {['Retail Store', 'Online Store', 'Distributor', 'Health Practitioner', 'Other'].map(type => (
+                {['Retail Store', 'Online Store', 'Distributor', 'Health Practitioner (Chiropractor, Naturopath, Nutritionist, etc.)', 'Other'].map(type => (
                   <div key={type} className="radio-option">
                     <input
                       type="radio"
@@ -377,6 +405,47 @@ const WholesaleRegistrationForm = () => {
               </div>
             )}
 
+            <div className="input-group">
+              <label className="input-label">Tax-exempt Status *</label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '8px' }}>
+                <span style={{ color: formData.taxExemptStatus === 'No' ? '#374151' : '#9ca3af' }}>No</span>
+                <div 
+                  onClick={() => {
+                    const newValue = formData.taxExemptStatus === 'Yes' ? 'No' : 'Yes';
+                    setFormData(prev => ({ ...prev, taxExemptStatus: newValue }));
+                    if (errors.taxExemptStatus) {
+                      setErrors(prev => ({ ...prev, taxExemptStatus: '' }));
+                    }
+                  }}
+                  style={{
+                    width: '48px',
+                    height: '24px',
+                    backgroundColor: formData.taxExemptStatus === 'Yes' ? '#10b981' : '#e5e7eb',
+                    borderRadius: '12px',
+                    position: 'relative',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.3s ease'
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                      backgroundColor: 'white',
+                      borderRadius: '50%',
+                      position: 'absolute',
+                      top: '2px',
+                      left: formData.taxExemptStatus === 'Yes' ? '26px' : '2px',
+                      transition: 'left 0.3s ease',
+                      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+                    }}
+                  />
+                </div>
+                <span style={{ color: formData.taxExemptStatus === 'Yes' ? '#374151' : '#9ca3af' }}>Yes</span>
+              </div>
+              {errors.taxExemptStatus && <span className="error-message">{errors.taxExemptStatus}</span>}
+            </div>
+
             <div className="input-row">
               <div className="input-group">
                 <label className="input-label">Years in Business *</label>
@@ -405,12 +474,7 @@ const WholesaleRegistrationForm = () => {
                 {errors.monthlyPurchaseVolume && <span className="error-message">{errors.monthlyPurchaseVolume}</span>}
               </div>
             </div>
-          </section>
 
-          {/* Legal & Tax Information */}
-          <section className="form-section">
-            <h2 className="section-title">Legal & Tax Information</h2>
-            
             <div className="input-row">
               <div className="input-group">
                 <label className="input-label">Federal EIN / Tax ID Number *</label>
@@ -705,6 +769,54 @@ const WholesaleRegistrationForm = () => {
             </div>
           </section>
 
+          {/* Minimum order acknowledgement */}
+          <section className="form-section">
+            <h2 className="section-title">Minimum order acknowledgement</h2>
+            
+            <div className="input-group">
+              <div style={{ marginBottom: '20px', padding: '15px', backgroundColor: '#000000', borderRadius: '8px' }}>
+                <p style={{ fontWeight: 'bold', fontSize: '16px', margin: '0 0 10px 0' }}>
+                  <strong>Minimum Order Requirement: 1000</strong>
+                </p>
+                <p style={{ fontSize: '14px', color: '#ffffffff', margin: '0' }}>
+                  Please note that our minimum order quantity is 1000 units. This requirement ensures we can provide the best pricing and service to our wholesale partners.
+                </p>
+              </div>
+
+              <div className="input-group">
+                <div className="checkbox-option">
+                  <input
+                    type="checkbox"
+                    name="minOrderAgreement"
+                    checked={formData.minOrderAgreement}
+                    onChange={handleInputChange}
+                    className="checkbox-input"
+                    id="min-order-agreement"
+                  />
+                  <label htmlFor="min-order-agreement" className="checkbox-label">
+                    I agree to the minimum order requirement of 1000 units. *
+                  </label>
+                </div>
+                {errors.minOrderAgreement && <span className="error-message">{errors.minOrderAgreement}</span>}
+              </div>
+              
+              <div className="input-group">
+                <label className="input-label">Order item count *</label>
+                <input
+                  type="number"
+                  name="orderItemCount"
+                  value={formData.orderItemCount}
+                  onChange={handleInputChange}
+                  className={`input-field ${errors.orderItemCount ? 'input-error' : ''}`}
+                  placeholder="Enter order item count (minimum 1000)"
+                  min="1000"
+                  disabled={!formData.minOrderAgreement}
+                />
+                {errors.orderItemCount && <span className="error-message">{errors.orderItemCount}</span>}
+              </div>
+            </div>
+          </section>
+
           {/* Agreement */}
           <section className="form-section">
             <div className="agreement-section">
@@ -727,7 +839,20 @@ const WholesaleRegistrationForm = () => {
                     id="agreement-confirmed"
                   />
                   <label htmlFor="agreement-confirmed" className="checkbox-label">
-                    I confirm that I have read and agree to all the terms stated above
+                    I confirm that I have read and agree to all the{' '}
+                    <Link 
+                      to="/terms-and-conditions"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: '#10b981',
+                        textDecoration: 'underline',
+                        fontWeight: 'bold'
+                      }}
+                    >
+                      terms and conditions
+                    </Link>{' '}
+                    stated. *
                   </label>
                 </div>
                 {errors.agreementConfirmed && <span className="error-message">{errors.agreementConfirmed}</span>}
