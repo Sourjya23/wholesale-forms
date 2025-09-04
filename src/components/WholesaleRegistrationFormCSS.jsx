@@ -32,6 +32,7 @@ const WholesaleRegistrationForm = () => {
     preferredShippingMethod: '',
     otherShippingMethod: '',
     hasLoadingDock: '',
+    autoShipEnrollment: '',
     agreementConfirmed: false,
     signature: '',
     signatureDate: ''
@@ -67,7 +68,7 @@ const WholesaleRegistrationForm = () => {
       'monthlyPurchaseVolume', 'federalEIN', 'resaleCertificateNumber',
       'sellsSupplements', 'complyWithLaws', 'sellsOnThirdParty',
       'preferredPaymentMethod', 'preferredShippingMethod', 'hasLoadingDock',
-      'signature'
+      'autoShipEnrollment', 'signature'
     ];
 
     requiredFields.forEach(field => {
@@ -665,6 +666,42 @@ const WholesaleRegistrationForm = () => {
                 </div>
               </div>
               {errors.hasLoadingDock && <span className="error-message">{errors.hasLoadingDock}</span>}
+            </div>
+          </section>
+
+          {/* Auto-Ship Program */}
+          <section className="form-section">
+            <h2 className="section-title">Auto-Ship Program</h2>
+            
+            <div className="input-group">
+              <label className="input-label">Would you like to be enrolled in our monthly Auto-Ship program? *</label>
+              <div className="radio-group">
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    name="autoShipEnrollment"
+                    value="Yes, sign me up for Auto-Ship."
+                    checked={formData.autoShipEnrollment === "Yes, sign me up for Auto-Ship."}
+                    onChange={handleInputChange}
+                    className="radio-input"
+                    id="auto-ship-yes"
+                  />
+                  <label htmlFor="auto-ship-yes" className="radio-label">Yes, sign me up for Auto-Ship.</label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    name="autoShipEnrollment"
+                    value="No"
+                    checked={formData.autoShipEnrollment === "No"}
+                    onChange={handleInputChange}
+                    className="radio-input"
+                    id="auto-ship-no"
+                  />
+                  <label htmlFor="auto-ship-no" className="radio-label">No</label>
+                </div>
+              </div>
+              {errors.autoShipEnrollment && <span className="error-message">{errors.autoShipEnrollment}</span>}
             </div>
           </section>
 

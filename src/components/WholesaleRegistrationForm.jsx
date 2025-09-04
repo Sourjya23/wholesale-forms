@@ -29,6 +29,7 @@ const WholesaleRegistrationForm = () => {
     preferredShippingMethod: '',
     otherShippingMethod: '',
     hasLoadingDock: '',
+    autoShipEnrollment: '',
     signatureDate: ''
   });
 
@@ -66,7 +67,8 @@ const WholesaleRegistrationForm = () => {
       'phoneNumber', 'emailAddress', 'businessType', 'yearsInBusiness',
       'monthlyPurchaseVolume', 'federalEIN', 'resaleCertificateNumber',
       'sellsSupplements', 'complyWithLaws', 'sellsOnThirdParty',
-      'preferredPaymentMethod', 'preferredShippingMethod', 'hasLoadingDock'
+      'preferredPaymentMethod', 'preferredShippingMethod', 'hasLoadingDock',
+      'autoShipEnrollment'
     ];
 
     requiredFields.forEach(field => {
@@ -631,6 +633,45 @@ const WholesaleRegistrationForm = () => {
                 </div>
                 {errors.hasLoadingDock && <p className="text-red-500 text-sm mt-1">{errors.hasLoadingDock}</p>}
               </div>
+            </div>
+          </section>
+
+          {/* Auto-Ship Program */}
+          <section className="space-y-6">
+            <h2 className="text-2xl font-semibold text-black border-b border-green-200 pb-2">
+              Auto-Ship Program
+            </h2>
+            
+            <div>
+              <label className="block text-sm font-medium text-black mb-3">
+                Would you like to be enrolled in our monthly Auto-Ship program? *
+              </label>
+              <div className="space-y-3">
+                <label className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-green-50 transition-colors cursor-pointer">
+                  <input
+                    type="radio"
+                    name="autoShipEnrollment"
+                    value="Yes, sign me up for Auto-Ship."
+                    checked={formData.autoShipEnrollment === "Yes, sign me up for Auto-Ship."}
+                    onChange={handleInputChange}
+                    className="text-green-600 focus:ring-green-500"
+                  />
+                  <span className="text-black"> Yes, sign me up for Auto-Ship.</span>
+                </label>
+                
+                <label className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-green-50 transition-colors cursor-pointer">
+                  <input
+                    type="radio"
+                    name="autoShipEnrollment"
+                    value="No"
+                    checked={formData.autoShipEnrollment === "No"}
+                    onChange={handleInputChange}
+                    className="text-green-600 focus:ring-green-500"
+                  />
+                  <span className="text-black"> No</span>
+                </label>
+              </div>
+              {errors.autoShipEnrollment && <p className="text-red-500 text-sm mt-1">{errors.autoShipEnrollment}</p>}
             </div>
           </section>
 
