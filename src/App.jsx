@@ -1,16 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import WholesaleRegistrationFormCSS from './components/WholesaleRegistrationFormCSS';
 import DistributorRegistrationForm from './components/DistributorRegistrationForm';
 import TermsAndConditions from './components/TermsAndConditions';
+import Preloader from './components/Preloader';
 import './App.css';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('wholesale');
+  const [isLoading, setIsLoading] = useState(true);
 
   const switchForm = (formType) => {
     setCurrentForm(formType);
   };
+
+  const handlePreloaderComplete = () => {
+    setIsLoading(false);
+  };
+
+  // Show preloader for a minimum time to ensure smooth experience
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Minimum 2 seconds to show preloader
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Preloader onComplete={handlePreloaderComplete} />;
+  }
 
   return (
     <Router>
