@@ -43,9 +43,10 @@ const DistributorRegistrationForm = () => {
     preferredShippingMethod: '',
     otherShippingMethod: '',
     dropShippingSupport: '',
-    agreementConfirmed: false,
-    signature: '',
-    signatureDate: ''
+  agreementConfirmed: false,
+  agreementTimestamp: '',
+  signature: '',
+  signatureDate: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -60,6 +61,12 @@ const DistributorRegistrationForm = () => {
           [name]: checked 
             ? [...prev[name], value]
             : prev[name].filter(item => item !== value)
+        }));
+      } else if (name === 'agreementConfirmed') {
+        setFormData(prev => ({
+          ...prev,
+          [name]: checked,
+          agreementTimestamp: checked ? new Date().toISOString() : ''
         }));
       } else {
         setFormData(prev => ({ ...prev, [name]: checked }));
@@ -950,9 +957,14 @@ const DistributorRegistrationForm = () => {
                     className="distributor-checkbox-input"
                     id="agreement-confirmed"
                   />
-                  <label htmlFor="agreement-confirmed" className="distributor-checkbox-label">
-                    I confirm that I have read and agree to all the terms stated above
-                  </label>
+                    <label htmlFor="agreement-confirmed" className="distributor-checkbox-label">
+                      I confirm that I have read and agree to all the terms stated above
+                    </label>
+                    {formData.agreementTimestamp && (
+                      <div className="distributor-timestamp" style={{ marginTop: '6px', fontSize: '12px', color: '#6b7280' }}>
+                        Checked at: {new Date(formData.agreementTimestamp).toLocaleString()}
+                      </div>
+                    )}
                 </div>
                 {errors.agreementConfirmed && <span className="distributor-error-message">{errors.agreementConfirmed}</span>}
               </div>

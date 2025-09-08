@@ -39,6 +39,7 @@ const WholesaleRegistrationForm = () => {
     orderItemCount: '',
     minOrderAgreement: false,
     agreementConfirmed: false,
+  agreementTimestamp: '',
     signature: '',
     signatureDate: ''
   });
@@ -49,7 +50,12 @@ const WholesaleRegistrationForm = () => {
     const { name, value, type, checked, files } = e.target;
     
     if (type === 'checkbox') {
-      setFormData(prev => ({ ...prev, [name]: checked }));
+      // special handling for agreement checkbox to store timestamp
+      if (name === 'agreementConfirmed') {
+        setFormData(prev => ({ ...prev, [name]: checked, agreementTimestamp: checked ? new Date().toISOString() : '' }));
+      } else {
+        setFormData(prev => ({ ...prev, [name]: checked }));
+      }
     } else if (type === 'file') {
       setFormData(prev => ({ ...prev, [name]: files[0] }));
     } else {
@@ -854,6 +860,11 @@ const WholesaleRegistrationForm = () => {
                     </Link>{' '}
                     stated. *
                   </label>
+                {formData.agreementTimestamp && (
+                  <div style={{ marginTop: '6px', fontSize: '12px', color: '#6b7280' }}>
+                    Checked at: {new Date(formData.agreementTimestamp).toLocaleString()}
+                  </div>
+                )}
                 </div>
                 {errors.agreementConfirmed && <span className="error-message">{errors.agreementConfirmed}</span>}
               </div>
